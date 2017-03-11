@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface CandidateCountService {
 
-    public void addVote(VoteDto voteDto);
+    void addVote(VoteDto voteDto);
 
     Map<String,Long> getResults();
 }

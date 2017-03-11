@@ -5,6 +5,7 @@ import com.bbc.count.me.up.kafka.VoteDtoDeserializer;
 import com.bbc.count.me.up.model.VoteDto;
 import com.bbc.count.me.up.service.CandidateCountService;
 import com.bbc.count.me.up.service.InMemoryCandidateCountService;
+import com.bbc.count.me.up.service.VotesCache;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -45,4 +46,10 @@ public class BeanConfig {
         props.put("enable.auto.commit", "true");
         return props;
     }
+
+    @Bean
+    public VotesCache votesCache(CandidateCountService candidateCountService) {
+        return new VotesCache(candidateCountService);
+    }
+
 }
