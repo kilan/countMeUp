@@ -2,8 +2,12 @@ package com.bbc.count.me.up.model;
 
 public class VoteDto {
 
-    private final String voterId;
-    private final String candidateId;
+    private String voterId;
+    private String candidateId;
+
+    public VoteDto() {
+
+    }
 
     public VoteDto(String voterId, String candidateId) {
         this.voterId = voterId;
@@ -18,4 +22,11 @@ public class VoteDto {
         return candidateId;
     }
 
+    public void setVoterId(String voterId) {
+        this.voterId = voterId;
+    }
+
+    public void setCandidateId(String candidateId) {
+        this.candidateId = candidateId;
+    }
 }
