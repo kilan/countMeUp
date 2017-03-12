@@ -9,4 +9,4 @@
 
 
 - build the project using maven: `mvn clean install`.  
-- to start the local erver: `mvn spring-boot:start`  
+- to start the local server: `mvn spring-boot:start`  
