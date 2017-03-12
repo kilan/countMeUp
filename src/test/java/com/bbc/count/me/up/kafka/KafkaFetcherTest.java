@@ -17,11 +17,12 @@ import java.util.List;
 
 public class KafkaFetcherTest {
 
-    private static final MockConsumer<String, VoteDto> consumer = new MockConsumer<>(OffsetResetStrategy.EARLIEST);
-    private static final CandidateCountService candidateCountService = Mockito.mock(CandidateCountService.class);
-    private static final KafkaFetcher kafkaFetcher = new KafkaFetcher(consumer, candidateCountService);
+    private final MockConsumer<String, VoteDto> consumer = new MockConsumer<>(OffsetResetStrategy.EARLIEST);
+    private final CandidateCountService candidateCountService = Mockito.mock(CandidateCountService.class);
+    private final KafkaFetcher kafkaFetcher = new KafkaFetcher(consumer, candidateCountService);
 
     private static final String TOPIC = "testTopic";
+
     private static final List<VoteDto> VOTE_DTOS = Arrays.asList(new VoteDto("voterId-1", "candidateId-1"),
             new VoteDto("voterId-2", "candidateId-2"),
             new VoteDto("voterId-3", "candidateId-3"));
@@ -39,7 +40,7 @@ public class KafkaFetcherTest {
             thread.interrupt();
         }
 
-        Thread.sleep(1000);
+        Thread.sleep(5000);
 
         Assert.assertTrue(consumer.closed());
         VOTE_DTOS.forEach(voteDto -> Mockito.verify(candidateCountService).addVote(voteDto));

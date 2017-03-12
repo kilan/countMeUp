@@ -6,9 +6,11 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.slf4j.Logger;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class KafkaFetcher implements Runnable {
 
-    private static final Logger LOG = org.slf4j.LoggerFactory.getLogger(KafkaFetcher.class);
+    private static final Logger LOG = getLogger(KafkaFetcher.class);
 
     private final Consumer<String, VoteDto> kafkaConsumer;
     private final CandidateCountService candidateCountService;

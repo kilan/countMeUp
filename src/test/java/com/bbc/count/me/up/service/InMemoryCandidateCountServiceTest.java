@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 
 public class InMemoryCandidateCountServiceTest {
 
-    private static final CandidateCountService service = new InMemoryCandidateCountService(3);
+    private final CandidateCountService service = new InMemoryCandidateCountService(3);
 
     @Test
     public void testVotesAreDistributed() {
@@ -87,7 +87,6 @@ public class InMemoryCandidateCountServiceTest {
         assertMapEquals(expectedResults, actualVotes);
 
         Assert.assertTrue("Test Timed out, duration=" + duration, duration < TimeUnit.SECONDS.toMillis(1));
-
     }
 
     private void assertMapEquals(Map<String, Long> expectedVotes, Map<String, Long> actualVotes) {

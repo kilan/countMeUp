@@ -4,6 +4,7 @@ import com.bbc.count.me.up.model.VoteDto;
 import com.bbc.count.me.up.service.CandidateCountService;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.common.TopicPartition;
+import org.slf4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -13,7 +14,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class MultipleKafkaConsumer {
+
+    private static final Logger LOG = getLogger(KafkaFetcher.class);
 
     private final Supplier<Consumer<String, VoteDto>> kafkaConsumerSupplier;
     private final CandidateCountService candidateCountService;
@@ -54,7 +59,7 @@ public class MultipleKafkaConsumer {
                     pool.shutdownNow(); // Cancel currently executing tasks
                     // Wait a while for tasks to respond to being cancelled
                     if (!pool.awaitTermination(60, TimeUnit.SECONDS))
-                        System.err.println("Pool did not terminate");
+                        LOG.error("Pool did not terminate");
                 }
             } catch (InterruptedException ie) {
                 // (Re-)Cancel if current thread also interrupted
