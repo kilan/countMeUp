@@ -1,8 +1,12 @@
-# countMeUp# countMeUp
+# CountMeUp
 
-./zookeeper-server-start.sh ../config/zookeeper.properties
-./kafka-server-start.sh ../config/server.properties
+- The application only requires Kafka as an external dependency.
+-- To download Kafka go to https://kafka.apache.org/downloads.html  
+-- Unzip it and cd to KAFKA_DIR/bin/  
+-- start Zookeeper: `./zookeeper-server-start.sh ../config/zookeeper.properties`  
+-- start Kafka server: `./kafka-server-start.sh ../config/server.properties`  
+-- create a Kafka topic: `./kafka-topics.sh --create --topic COUNT_ME_UP_TOPIC --partitions 15  --zookeeper localhost:2181 --replication-factor 1`  
 
-./kafka-topics.sh --create --topic BBC.TOPIC.VOTES.TEST.002 --partitions 15  --zookeeper localhost:2181 --replication-factor 1
 
-./kafka-console-consumer.sh --topic BBC.TOPIC.VOTES_TEST_001 --zookeeper localhost:2181 --from-beginning
+- build the project using maven: `mvn clean install`.  
+- to start the local server: `mvn spring-boot:start`  
