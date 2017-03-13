@@ -1,6 +1,6 @@
 # CountMeUp
 
-- The application only requires Kafka as an external dependency.
+- The application only requires Kafka as an external dependency.  
 -- To download Kafka go to https://kafka.apache.org/downloads.html  
 -- Unzip it and cd to KAFKA_DIR/bin/  
 -- start Zookeeper: `./zookeeper-server-start.sh ../config/zookeeper.properties`  
