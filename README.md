@@ -23,10 +23,10 @@
 - I am caching the result as I don't want each request to reprocess the state.  
 
 ## Potential Changes
-- Slow restart: If the vote count was in the hundreds of millions, then I would persist to a database periodically:
--- the votes for each candidate.
--- number of times a user voted.
--- kafka offsets for each partition. 
-- This would allow the application to continue to continue from where it previously restarted. However in this case Kafka would not be required and a traditional JMS queue could be used instead.
-- Kafka-streams could be potentially used as it persists state RocksDB, an embedded database.
-- Spark Streaming could be used stream from Kafka and to compute the voting result and notify the results to another service or persist to a database.
+- Slow restart: If the vote count was in the hundreds of millions, then I would persist to a database periodically:  
+	- the votes for each candidate.  
+	- number of times a user voted.  
+	- kafka offsets for each partition.  
+- This would allow the application to continue to continue from where it previously restarted. However in this case Kafka would not be required and a traditional JMS queue could be used instead.  
+- Kafka-streams could be potentially used as it persists state RocksDB, an embedded database.  
+- Spark Streaming could be used stream from Kafka and to compute the voting result and notify the results to another service or persist to a database.  
