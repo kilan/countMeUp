@@ -3,9 +3,9 @@ package com.bbc.count.me.up.helper;
 import com.bbc.count.me.up.kafka.VoteDtoSerializer;
 import com.bbc.count.me.up.model.VoteDto;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import org.junit.Ignore;
@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.stream.IntStream;
 
 public class WriteToKafkaHelper {
@@ -53,8 +55,34 @@ public class WriteToKafkaHelper {
         producer.close();
     }
 
-    private void writeToKafka(VoteDto voteDto) {
-        producer.send(new ProducerRecord<>(topic, voteDto.getVoterId(), voteDto));
+    @Test
+    @Ignore()
+    public void writeSlowyToKafka() throws InterruptedException {
+
+        String[] candidates = new String[]{"candidateId-1",
+                "candidateId-2",
+                "candidateId-3",
+                "candidateId-4",
+                "candidateId-5"};
+
+        int voterId = 0;
+        while(true) {
+            writeToKafkaSlowly(new VoteDto("voterId--" + voterId , candidates[voterId % candidates.length]));
+            voterId++;
+            Thread.sleep(100);
+        }
+    }
+
+    private Future<RecordMetadata> writeToKafka(VoteDto voteDto) {
+        return producer.send(new ProducerRecord<>(topic, voteDto.getVoterId(), voteDto));
+    }
+
+    private void writeToKafkaSlowly(VoteDto voteDto) {
+        try {
+            writeToKafka(voteDto).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     private static Properties kafkaProperties() {

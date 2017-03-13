@@ -28,7 +28,7 @@ public class VotesCache {
 
     @Scheduled(fixedDelay = 100)
     private void reloadCache() {
-        LOG.info("caching");
+        LOG.debug("caching");
         cachedVotes = candidateCountService.getResults().entrySet().stream()
                 .map(e -> new CandidateResults(e.getKey(), e.getValue()))
                 .collect(Collectors.toList());
