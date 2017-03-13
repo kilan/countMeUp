@@ -6,6 +6,7 @@
 -- start Zookeeper: `./zookeeper-server-start.sh ../config/zookeeper.properties`  
 -- start Kafka server: `./kafka-server-start.sh ../config/server.properties`  
 -- create a Kafka topic: `./kafka-topics.sh --create --topic COUNT_ME_UP_TOPIC --partitions 15  --zookeeper localhost:2181 --replication-factor 1`  
+-- WriteToKafkaHelper contains helper unit tests to write data to a local Kafka.
 
 
 - build the project using maven: `mvn clean install`.  
